@@ -8,9 +8,10 @@ namespace Uppgift1_CICD
     {
         static void Main(string[] args)
         {
-           
+            var consoleMenu = new View.ConsoleMenus();
+
+            consoleMenu.SignInMenu();
+            consoleMenu.AdminMenu();
         }
-  
-        
     }
 }

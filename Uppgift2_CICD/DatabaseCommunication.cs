@@ -28,7 +28,7 @@ namespace Uppgift1_CICD
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
             return sqlite_conn;
         }
