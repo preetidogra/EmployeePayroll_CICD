@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Uppgift1_CICD
 {
-
     public class Admin
     {
         public string Username { get; set; }
