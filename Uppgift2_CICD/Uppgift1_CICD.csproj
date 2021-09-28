@@ -13,9 +13,11 @@
     <None Remove="Models\" />
     <None Remove="Controller\" />
     <None Remove="View\" />
+    <None Remove="Database\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controller\" />
     <Folder Include="View\" />
+    <Folder Include="Database\" />
   </ItemGroup>
 </Project>
