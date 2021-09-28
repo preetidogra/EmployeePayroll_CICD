@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 
 
 namespace Uppgift1_CICD
@@ -9,7 +8,9 @@ namespace Uppgift1_CICD
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Type:");
+            Console.WriteLine(Controller.UserInput.GetStringInput());
+            
             var userList = new List<Models.User>();
             userList = CreateDatabase.CreateListOfUsers(userList);
             var roleList = new List<Models.CompanyRole>();
@@ -25,7 +26,6 @@ namespace Uppgift1_CICD
             {
                 Console.WriteLine(item.EmpName + " is making " + item.EmpSalary + " SEK each month");
             }
-
            
         }
     }
