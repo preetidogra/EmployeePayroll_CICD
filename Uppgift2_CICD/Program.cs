@@ -11,7 +11,7 @@ namespace Uppgift1_CICD
             Console.WriteLine("Type:");
             Console.WriteLine(Controller.UserInput.GetStringInput());
             
-            ar userList = new List<Models.User>();
+            var userList = new List<Models.User>();
             userList = CreateDatabase.CreateListOfUsers(userList);
             var roleList = new List<Models.CompanyRole>();
             roleList = CreateDatabase.CreateListOCompanyRoles(roleList);
