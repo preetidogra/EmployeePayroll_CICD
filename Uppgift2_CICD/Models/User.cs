@@ -22,7 +22,6 @@ namespace Uppgift1_CICD.Models
             this.EmpRoleID = empRoleID;
             this.EmpSalary = empSalary;
             this.EmpAccountID = empAccountID;
-
         }
     }
 }

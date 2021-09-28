@@ -14,10 +14,7 @@ namespace Uppgift1_CICD
             consoleMenu.SignInMenu();
             consoleMenu.AdminMenu();
 
-            var list = new List<Models.User>();
-
-            list.Add(new Models.User(0, "Philip Rasmusson", "phiras001", "qasw12!", 0, 48000, 0));
-            //public User(int empID, string empName, string usename, string password, int empRoleID, int empSalary, int empAccountID)
+           
         }
     }
 }
