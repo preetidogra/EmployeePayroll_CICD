@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Uppgift1_CICD.Models
 {
-    public class User
+    public class User //: Models.UserAdmin
     {
 
         public int EmpID { get; set; }

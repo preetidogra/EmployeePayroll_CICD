@@ -7,9 +7,12 @@ namespace Uppgift1_CICD
     {
         public CreateDatabase()
         {
-            var list = new List<Models.User>();
+            var userList = new List<Models.UserAdmin>();
+            var roleList = new List<Models.CompanyRole>();
+            var accountList = new List<Models.Account>();
+            var admin = new Models.UserAdmin("", "");
 
-            list.Add(new Models.User(0, "Philip Rasmusson", "phiras001", "qasw12!", 0, 48000, 0));
+           // userList.Add(new Models.User(0, "Philip Rasmusson", "phiras001", "qasw12!", 0, 48000, 0));
             //User(int empID, string empName, string username, string password, int empRoleID, int empSalary, int empAccountID)
         }
     }
