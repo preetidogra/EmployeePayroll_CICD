@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Uppgift1_CICD
 {
-    public class UserDetails
+    abstract class UserDetails
     {
+
     }
 }
 
