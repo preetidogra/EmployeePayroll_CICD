@@ -5,14 +5,7 @@ namespace Uppgift1_CICD
 {
     public class CreateDatabase
     {
-        public CreateDatabase()
-        {
-            
-            
-
-
-
-        }
+        
         public static List<Models.User> CreateListOfUsers(List<Models.User> userList)
         {
             userList.Add(new Models.User(1, "Philip Rasmusson", "phiras001", "qasw12!", 1, 42300));
