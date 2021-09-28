@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Uppgift1_CICD
 {
-    class UserDetails
+    public class UserDetails
     {
     }
 }
