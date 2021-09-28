@@ -5,7 +5,6 @@ namespace Uppgift1_CICD
 {
     public class CreateDatabase
     {
-        
         public static List<Models.User> CreateListOfUsers(List<Models.User> userList)
         {
             userList.Add(new Models.User(1, "Philip Rasmusson", "phiras001", "qasw12!", 1, 42300));
@@ -18,7 +17,6 @@ namespace Uppgift1_CICD
             userList.Add(new Models.User(8, "Miranda Ceder", "mirced001", "qasw12!", 3, 31400));
             userList.Add(new Models.User(9, "Rahul Sharma", "rahsha001", "qasw12!", 4, 28000));
             userList.Add(new Models.User(10, "Phylia Medaar", "phymed001", "qasw12!", 4, 25000));
-
             return userList;
         }  
         public static List<Models.CompanyRole> CreateListOCompanyRoles(List<Models.CompanyRole> roleList)
