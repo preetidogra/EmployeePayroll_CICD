@@ -28,5 +28,13 @@ namespace Uppgift1_CICD.View
             "[3] Delete account\n" +
             "[4] Log out\n");
         }
+        public void UserInformation(Models.User user)
+        {
+            Console.WriteLine("" +
+                $"Employee name: {user.EmpName}\n"+
+                $"Employee salary: {user.EmpSalary} SEK\n" +
+                $"Employee balance: {user.EmpBalance} SEK\n" +
+                $"Employee role: {user.EmpRoleID}");
+        }
     }
 }

@@ -3,13 +3,13 @@ namespace Uppgift1_CICD.Models
 {
     public class Account
     {
-        public int AccountID { get; set; }
-        public int AccountBalance { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public Account(int accountID, int accountBalance)
+        public Account(string username, string password)
         {
-            this.AccountID = accountID;
-            this.AccountBalance = accountBalance;
+            this.Username = username;
+            this.Password = password;
         }
     }
 }
