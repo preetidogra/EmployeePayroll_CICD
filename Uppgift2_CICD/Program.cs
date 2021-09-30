@@ -4,25 +4,25 @@ using System.Collections.Generic;
 
 namespace Uppgift1_CICD
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             RunProgram();
         }
 
-        static void RunProgram()
+        public static void RunProgram()
         {
             var menu = new View.ConsoleMenus();
+            var invalidSignIn = new View.ErrorMessages();
             var runProgram = true;
 
-            var userList = new List<Models.User>();
+            var userList = new List<Models.UserAccount>();
             userList = CreateDatabase.CreateListOfUsers(userList);
 
             var roleList = new List<Models.CompanyRole>();
             roleList = CreateDatabase.CreateListOCompanyRoles(roleList);
 
-            var admin = new Models.UserAdmin("admin1", "admin1234");
             while (runProgram)
             {
 
@@ -35,9 +35,10 @@ namespace Uppgift1_CICD
                     var usernameValid = false;
                     Console.WriteLine("Please enter username:");
                     var username = Console.ReadLine();
-
+                    var admin = CreateDatabase.admin1;
                     
                     var userIndex = -1;
+
                     for (int i = 0; i < userList.Count; i++)
                     {                    
                         if(username == userList[i].Username)
@@ -52,44 +53,70 @@ namespace Uppgift1_CICD
                         var password = Console.ReadLine();
                         if(userList[userIndex].Password == password)
                         {
-                            var user = new Models.User(userList[userIndex].EmpID, userList[userIndex].EmpName, userList[userIndex].Username, userList[userIndex].Password, userList[userIndex].EmpRoleID, userList[userIndex].EmpSalary, userList[userIndex].EmpBalance);
-
                             if (username != "admin1")
                             {
                                 Console.Clear();
-                                menu.UserInformation(user);
+                                menu.UserInformation(userList[userIndex]);
                                 Console.WriteLine();
                                 menu.UserMenu();
-                                var userMenuChoice = Controller.UserInput.IsInputInterger(1, 4);
+                                var userMenuChoice = Controller.UserInput.IsInputInterger(0, 3);
+
+                                switch (userMenuChoice)
+                                {
+                                    case 1: {
+                                            Console.WriteLine($"Case: {userMenuChoice}");
+                                        }
+                                        break;
+                                    case 2: {
+                                            Console.WriteLine($"Case: {userMenuChoice}");
+                                        }
+                                        break;
+                                    case 3: {
+                                            Console.WriteLine("Please enter username:");
+                                           if(Console.ReadLine() == username)
+                                            {
+                                                Console.WriteLine("Please enter password:");
+                                                if (Console.ReadLine() == password)
+                                                {
+                                                    userList.RemoveAt(userIndex);
+                                                    invalidSignIn.ShowMessageAndClear($"User {userList[userIndex].Username} har been deleted.");
+                                                }
+                                                else
+                                                {
+                                                    invalidSignIn.ShowMessageAndClear("Password not correct");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                invalidSignIn.ShowMessageAndClear("Username does not exist");
+                                            }
+                                        }
+                                        break;
+                                    case 0: {
+                                            Console.Clear();
+                                        }
+                                        break;
+                                }
                             }
                             else
                             {
                                 Console.Clear();
                                 menu.AdminMenu();
                             }
-
-
                         }
                         else
                         {
-                            Console.WriteLine("Password not correct\nPress any key to continue");
-                            Console.ReadKey();
-                            Console.Clear();
+                            invalidSignIn.ShowMessageAndClear("Password not correct");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Username does not exist\nPress any key to continue");
-                        Console.ReadKey();
-                        Console.Clear();
+                        invalidSignIn.ShowMessageAndClear("Username does not exist");
                     }
                 }
                 else
                     runProgram = false;
             }
-          
-
-
         }
     }
 }
