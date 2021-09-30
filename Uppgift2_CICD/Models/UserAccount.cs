@@ -8,9 +8,8 @@ namespace Uppgift1_CICD.Models
     {
         public int EmpNewRole { get; set; }
         public int EmpNewSalary { get; set; }
-        public UserAccount(int empID, string empName, string username, string password, int empRoleID, int empSalary, int empBalance)
-        {
-            this.EmpID = empID;
+        public UserAccount(string empName, string username, string password, int empRoleID, int empSalary, int empBalance)
+        {           
             this.EmpName = empName;
             this.Username = username;
             this.Password = password;

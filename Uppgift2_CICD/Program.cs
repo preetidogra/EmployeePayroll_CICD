@@ -19,9 +19,9 @@ namespace Uppgift1_CICD
 
             var userList = new List<Models.UserAccount>();
             userList = CreateDatabase.CreateListOfUsers(userList);
-
             var roleList = new List<Models.CompanyRole>();
             roleList = CreateDatabase.CreateListOCompanyRoles(roleList);
+            var admin = CreateDatabase.admin1;
 
             while (runProgram)
             {
@@ -33,11 +33,11 @@ namespace Uppgift1_CICD
                 if (userInput == 1)
                 {
                     var usernameValid = false;
+                    var userIndex = -1;
+
                     Console.WriteLine("Please enter username:");
                     var username = Console.ReadLine();
-                    var admin = CreateDatabase.admin1;
                     
-                    var userIndex = -1;
 
                     for (int i = 0; i < userList.Count; i++)
                     {                    
@@ -64,11 +64,55 @@ namespace Uppgift1_CICD
                                 switch (userMenuChoice)
                                 {
                                     case 1: {
-                                            Console.WriteLine($"Case: {userMenuChoice}");
+                                            var userRole = "";
+                                            var newRole = 0;
+                                            Console.Clear();
+                                            Console.WriteLine("These are our company roles:\n");
+                                            foreach (var item in roleList)
+                                            {
+                                                if (userList[userIndex].EmpRoleID == item.RoleID) 
+                                                {
+                                                    userRole = item.RoleName;
+                                                }
+                                                Console.WriteLine($"[{item.RoleID}]{item.RoleName}");
+                                            }
+                                            Console.WriteLine($"Your role is: {userRole}\n");
+                                            Console.WriteLine("Please select you new company role:\n");
+                                            newRole = Controller.UserInput.IsInputInterger(1, 4);
+
+                                            Console.WriteLine($"Your new demanded role is: {roleList[newRole-1].RoleName}\n");
+                                            Console.WriteLine($"Is this correct?");
+                                            Console.WriteLine($"[1]Yes\n[0]No");
+                                            if (Controller.UserInput.IsInputInterger(0, 1) == 1)
+                                            {
+                                                userList[userIndex].EmpNewRole = newRole;
+                                                invalidSignIn.ShowMessageAndClear("You new demand has been registered.");
+                                            }
+                                            else
+                                            {
+                                                invalidSignIn.ShowMessageAndClear("You have aborted this action.");
+                                            }
+                                            Console.ReadKey();
                                         }
                                         break;
                                     case 2: {
-                                            Console.WriteLine($"Case: {userMenuChoice}");
+                                            Console.WriteLine($"Your salary is: {userList[userIndex].EmpSalary}");
+                                            Console.WriteLine("We only allow a pay raise of 1 - 100%.\nNo decrease in salary allowed!");
+                                            Console.WriteLine("Please enter your demanded salary:");
+                                            var demandedSalary = Controller.UserInput.IsInputInterger(userList[userIndex].EmpSalary+1, userList[userIndex].EmpSalary * 2);
+                                            Console.Clear();
+                                            Console.WriteLine($"Your new demanded salary is: {demandedSalary}");
+                                            Console.WriteLine($"Is this correct?");
+                                            Console.WriteLine($"[1]Yes\n[0]No");
+                                            if (Controller.UserInput.IsInputInterger(0, 1) == 1)
+                                            {
+                                                userList[userIndex].EmpNewSalary = demandedSalary;
+                                                invalidSignIn.ShowMessageAndClear("You new demand has been registered.");
+                                            }
+                                            else 
+                                            {
+                                                invalidSignIn.ShowMessageAndClear("You have aborted this action.");
+                                            }                                            
                                         }
                                         break;
                                     case 3: {
