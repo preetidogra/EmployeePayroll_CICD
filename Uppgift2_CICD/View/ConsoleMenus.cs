@@ -18,7 +18,7 @@ namespace Uppgift1_CICD.View
             "[3] Move forward one month\n" +
             "[4] Create new user\n" +
             "[5] Delete accounts\n" +
-            "[6] Log out\n");
+            "[0] Log out\n");
         }
         public void UserMenu()
         {
@@ -26,9 +26,9 @@ namespace Uppgift1_CICD.View
             "[1] Demand new company role\n" +
             "[2] Demand change in salay\n" +
             "[3] Delete account\n" +
-            "[4] Log out\n");
+            "[0] Log out\n");
         }
-        public void UserInformation(Models.User user)
+        public void UserInformation(Models.UserAccount user)
         {
             Console.WriteLine("" +
                 $"Employee name: {user.EmpName}\n"+

@@ -1,15 +1,14 @@
 ﻿using System;
 namespace Uppgift1_CICD.Models
 {
-    public class Account
+    public abstract class Account
     {
         public string Username { get; set; }
         public string Password { get; set; }
-
-        public Account(string username, string password)
-        {
-            this.Username = username;
-            this.Password = password;
-        }
+        public int EmpID { get; set; }
+        public string EmpName { get; set; }
+        public int EmpRoleID { get; set; }
+        public int EmpSalary { get; set; }
+        public int EmpBalance { get; set; }
     }
 }
