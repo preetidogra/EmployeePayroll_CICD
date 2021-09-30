@@ -5,7 +5,6 @@ namespace Uppgift1_CICD.Models
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public int EmpID { get; set; }
         public string EmpName { get; set; }
         public int EmpRoleID { get; set; }
         public int EmpSalary { get; set; }
