@@ -20,5 +20,6 @@ namespace Uppgift1_CICD.Models
             this.EmpNewRole = 0;
             this.EmpNewSalary = 0;
         }
+        public UserAccount() { }
     }
 }

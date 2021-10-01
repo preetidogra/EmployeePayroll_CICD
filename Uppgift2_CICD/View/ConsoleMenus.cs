@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Uppgift1_CICD.View
 {
     public class ConsoleMenus
@@ -28,13 +30,20 @@ namespace Uppgift1_CICD.View
             "[3] Delete account\n" +
             "[0] Log out\n");
         }
-        public void UserInformation(Models.UserAccount user)
+        public void UserInformation(Models.Account user, List<Models.CompanyRole> roleList)
         {
             Console.WriteLine("" +
                 $"Employee name: {user.EmpName}\n"+
                 $"Employee salary: {user.EmpSalary} SEK\n" +
                 $"Employee balance: {user.EmpBalance} SEK\n" +
-                $"Employee role: {user.EmpRoleID}");
+                $"Employee role: {roleList[user.EmpRoleID - 1].RoleName}");
+        }
+        public void UserInformationInAdminMenu(Models.Account user)
+        {
+            Console.WriteLine("" +
+                $"Employee name: {user.EmpName, 17} | "+
+                $"Account username: {user.Username} | " +
+                $"Account password: {user.Password}");
         }
     }
 }
