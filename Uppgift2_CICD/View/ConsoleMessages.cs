@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Uppgift1_CICD.View
 {
-    public class ErrorMessages
+    public class ConsoleMessages
     {
-        public ErrorMessages() {}
+        public ConsoleMessages() {}
         public void ShowMessageAndClear(string message) 
             {
                 Console.WriteLine(message);

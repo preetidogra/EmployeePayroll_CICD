@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Uppgift1_CICD.Models
 {
-    public abstract class Account
+    public class Account
     {
         public string Username { get; set; }
         public string Password { get; set; }
@@ -9,5 +9,6 @@ namespace Uppgift1_CICD.Models
         public int EmpRoleID { get; set; }
         public int EmpSalary { get; set; }
         public int EmpBalance { get; set; }
+    public Account() { }
     }
 }
