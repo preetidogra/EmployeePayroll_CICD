@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace Uppgift1_CICD
 {
@@ -235,7 +235,35 @@ namespace Uppgift1_CICD
                         consoleMessage.ShowMessageAndClear("One month has passed and everyone is richer");
                         break;
                     case 4:
-                        
+                        Console.WriteLine("Enter username for new user:");
+                        var newUsername = Console.ReadLine();
+                        var newUsernameValid = true;
+                        foreach (var item in userList)
+                        {
+                            if(item.Username == newUsername)
+                            {
+                                consoleMessage.ShowMessageAndClear("Username already exists, please try another");
+                                newUsernameValid = false;
+                            }
+                        }
+                        newUsernameValid = (newUsername != user.Username);
+                        if (newUsernameValid)
+                        {
+                            Console.WriteLine($"Enter password for new user {newUsername}:");
+                            var newPassword = Console.ReadLine();
+                            var newPasswordValid = newPassword.Any(char.IsDigit);
+                            if (newPasswordValid)
+                                newPasswordValid = newPassword.Any(char.IsLetter);
+                            if (newPasswordValid)
+                            {
+                                userList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
+                                consoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
+                            }
+                            else
+                            {
+                                consoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
+                            }
+                        }
                         break;
                     case 5:
                         {
