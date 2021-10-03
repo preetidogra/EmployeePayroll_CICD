@@ -14,31 +14,5 @@ namespace Uppgift1_CICD.Controller
             }
             return parseOK;
         }
-
-        public static string GetStringInput()
-        {
-            var check = false;
-            var userInput = "";
-            while (!check)
-            {
-                userInput = Console.ReadLine();
-                check = UserInput.IsInputAlphabetic(userInput);
-            }
-            
-            return userInput;
-        }
-
-        public static bool IsInputAlphabetic(string input)
-        {            
-            foreach (char c in input)
-            {
-                if (!char.IsLetter(c))
-                {
-                    Console.WriteLine("Invalid input");
-                    return false;
-                }
-            }
-            return true;            
-        }
     }
 }
