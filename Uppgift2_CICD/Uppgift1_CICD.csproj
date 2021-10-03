@@ -16,7 +16,6 @@
     <None Remove="Database\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controller\" />
     <Folder Include="Database\" />
   </ItemGroup>
 </Project>
