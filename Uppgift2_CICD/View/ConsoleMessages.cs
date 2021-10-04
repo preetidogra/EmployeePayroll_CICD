@@ -48,7 +48,7 @@ namespace Uppgift1_CICD.View
         public void UserInformationInAdminMenu(Models.Account user)
         {
             Console.WriteLine("" +
-                $"Employee name: {user.EmpName,17} | " +
+                $"Employee name: {user.EmpName,19} | " +
                 $"Account username: {user.Username,10} | " +
                 $"Account password: {user.Password,8}");
         }
