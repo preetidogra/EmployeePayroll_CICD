@@ -48,7 +48,7 @@ namespace Uppgift1_CICD.Controller
                             consoleMessage.UserInformationInAdminMenu(item);
                         }
                         Console.WriteLine("\nAdmin:");
-                        consoleMessage.UserInformation(user, roleList);
+                        consoleMessage.UserInformationInAdminMenu(user);
                         consoleMessage.ShowMessageAndClear("");
                         break;
 

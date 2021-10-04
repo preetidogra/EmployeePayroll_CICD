@@ -54,32 +54,44 @@ namespace Uppgift1_CICD.Controller.Actions
             var consoleMessage = new View.ConsoleMessages();
             Console.WriteLine("Enter username for new user:");
             var newUsername = Console.ReadLine();
-            var newUsernameValid = true;
-            foreach (var item in userList)
-            {
-                if (item.Username == newUsername)
+            var newUsernameValid = IsUserNameValid(newUsername);
+            if (newUsername != user.Username)
+                if (newUsernameValid)
                 {
-                    consoleMessage.ShowMessageAndClear("Username already exists, please try another");
-                    newUsernameValid = false;
-                }
-            }
-            newUsernameValid = (newUsername != user.Username);
-            if (newUsernameValid)
-            {
-                Console.WriteLine($"Enter password for new user {newUsername}:");
-                var newPassword = Console.ReadLine();
-                var newPasswordValid = newPassword.Any(char.IsDigit);
-                if (newPasswordValid)
-                    newPasswordValid = newPassword.Any(char.IsLetter);
-                if (newPasswordValid)
-                {
-                    userList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
-                    consoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
+                    foreach (var item in userList)
+                    {
+                        if (item.Username == newUsername)
+                        {
+                            consoleMessage.ShowMessageAndClear("Username already exists, please try another");
+                            newUsernameValid = false;
+                        }
+                    }
+                    if (newUsernameValid)
+                    {
+                        Console.WriteLine($"Enter password for new user {newUsername}:");
+                        var newPassword = Console.ReadLine();
+                        var newPasswordValid = newPassword.Any(char.IsDigit);
+                        if (newPasswordValid)
+                            newPasswordValid = newPassword.Any(char.IsLetter);
+                        if (newPasswordValid)
+                        {
+                            userList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
+                            consoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
+                        }
+                        else
+                        {
+                            consoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
+                        }
+                    }
                 }
                 else
                 {
-                    consoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
+                    consoleMessage.ShowMessageAndClear("Username must contain at least 1 letter and 1 digit");
                 }
+
+            else
+            {
+                consoleMessage.ShowMessageAndClear($"Username {user.Username} already exists, please try another");
             }
         }
         public void MoveForwardOneMonth(List<Models.UserAccount> userList, Models.Account user)
@@ -123,6 +135,15 @@ namespace Uppgift1_CICD.Controller.Actions
             {
                 consoleMessage.ShowMessageAndClear("Username does not exist");
             }
+        }
+        public bool IsUserNameValid(string username)
+        {
+            if (username.Any(char.IsDigit))
+            {
+                return username.Any(char.IsLetter);
+            }
+            else
+                return false;
         }
     }
 }
