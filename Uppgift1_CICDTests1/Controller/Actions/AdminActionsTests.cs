@@ -17,7 +17,7 @@ namespace Uppgift1_CICD.Controller.Actions.Tests
             Assert.AreEqual(true, method.IsUserNameValid("df4333"));
             Assert.AreEqual(false, method.IsUserNameValid("3232"));
             Assert.AreEqual(false, method.IsUserNameValid("dfdfd"));
-            Assert.AreEqual(false, method.IsUserNameValid(""));
+            Assert.AreEqual(false, method.IsUserNameValid("44S"));
         }
     }
 }
