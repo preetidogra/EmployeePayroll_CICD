@@ -53,9 +53,7 @@ namespace Uppgift1_CICD.Controller
                         break;
 
                     case 2: adminActions.SeeUserDemands(userList, roleList); break;
-
-                    case 3:
-                        adminActions.MoveForwardOneMonth(userList, user); break;
+                    case 3: adminActions.AdvanceOneMonth(userList, user); break;
                     case 4: adminActions.CreateNewUser(userList, user); break;
                     case 5: adminActions.DeleteUser(userList, userIndex); break;
                     default:

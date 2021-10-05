@@ -94,7 +94,7 @@ namespace Uppgift1_CICD.Controller.Actions
                 consoleMessage.ShowMessageAndClear($"Username {user.Username} already exists, please try another");
             }
         }
-        public void MoveForwardOneMonth(List<Models.UserAccount> userList, Models.Account user)
+        public void AdvanceOneMonth(List<Models.UserAccount> userList, Models.Account user)
         {
             var consoleMessage = new View.ConsoleMessages();
             foreach (var item in userList)
