@@ -29,14 +29,17 @@ namespace Uppgift1_CICD
                 consoleMessage.SignInMenu();
 
                 var userInput = Controller.UserInput.IsInputInterger(0, 1);
-
                 if (userInput == 1)
                 {
+                    Console.WriteLine("Please enter username:");
+                    var username = Console.ReadLine();
+                    Console.WriteLine("Please enter password:");
+                    var password = Console.ReadLine();
+                    // public static SignIn( username, password)
                     var usernameValid = false;
                     var userIndex = -1;
 
-                    Console.WriteLine("Please enter username:");
-                    var username = Console.ReadLine();
+                    //var username = Console.ReadLine();
                     for (int i = 0; i < userList.Count; i++)
                     {
                         if (username == admin.Username)
@@ -44,36 +47,35 @@ namespace Uppgift1_CICD
                             user = admin;
                             usernameValid = true;
                         }
-                        else 
+                        else
                         {
-                            if(username == userList[i].Username)
-                                {
-                                    usernameValid = true;
-                                    userIndex = i;
-                                    user = userList[i];
-                                }
+                            if (username == userList[i].Username)
+                            {
+                                usernameValid = true;
+                                userIndex = i;
+                                user = userList[i];
+                            }
                         }
                     }
                     if (usernameValid)
                     {
-                        Console.WriteLine("Please enter password:");
-                        var password = Console.ReadLine();
                         var userType = user.GetType();
-                        if(user.Password == password)
+                        if (user.Password == password)
                         {
+                            usernameValid = true;
                             if (userType == typeof(Models.UserAccount))
-                               Controller.Menus.UserMenu(userList, roleList, userIndex, consoleMessage, user); 
-                            else 
-                               Controller.Menus.AdminMenu(userList, roleList, userIndex, consoleMessage, user);
+                                Controller.Menus.UserMenu(userList, roleList, userIndex, consoleMessage, user);
+                            else
+                                Controller.Menus.AdminMenu(userList, roleList, userIndex, consoleMessage, user);
                         }
-                        else consoleMessage.ShowMessageAndClear("Password not correct");
+                        else usernameValid = false;
                     }
-                    else  consoleMessage.ShowMessageAndClear("Username does not exist");
+                    if(!usernameValid) consoleMessage.ShowMessageAndClear("Username and password does not match");
                 }
                 else
                     runProgram = false;
             }
         }
-        
+
     }
 }
