@@ -37,13 +37,13 @@ namespace Uppgift1_CICD.View
             "[3] Delete account\n" +
             "[0] Log out\n");
         }
-        public void UserInformation(Models.Account user, List<Models.CompanyRole> roleList)
+        public void UserInformation(Models.Account user, List<Models.CompanyRole> RoleList)
         {
             Console.WriteLine("" +
                 $"Employee name: {user.EmpName}\n" +
                 $"Employee salary: {user.EmpSalary} SEK\n" +
                 $"Employee balance: {user.EmpBalance} SEK\n" +
-                $"Employee role: {roleList[user.EmpRoleID - 1].RoleName}");
+                $"Employee role: {RoleList[user.EmpRoleID - 1].RoleName}");
         }
         public void UserInformationInAdminMenu(Models.Account user)
         {

@@ -11,23 +11,19 @@ namespace Uppgift1_CICD
             RunProgram();
         }
 
-        private static void RunProgram()
+        public static void RunProgram()
         {
-            var consoleMessage = new View.ConsoleMessages();
             var runProgram = true;
+            var obj = new Controller.VariableObject();
 
-            var userList = new List<Models.UserAccount>();
-            userList = CreateDatabase.CreateListOfUsers(userList);
-            var roleList = new List<Models.CompanyRole>();
-            roleList = CreateDatabase.CreateListOCompanyRoles(roleList);
-            var admin = CreateDatabase.admin1;
-            var user = new Models.Account();
+            CreateDatabase.CreateListOCompanyRoles(obj);
+            CreateDatabase.CreateListOfUsers(obj);
+            obj.Admin = CreateDatabase.admin1;
 
             while (runProgram)
             {
                 Console.Clear();
-                consoleMessage.SignInMenu();
-
+                obj.ConsoleMessage.SignInMenu();
                 var userInput = Controller.UserInput.IsInputInterger(0, 1);
                 if (userInput == 1)
                 {
@@ -35,47 +31,46 @@ namespace Uppgift1_CICD
                     var username = Console.ReadLine();
                     Console.WriteLine("Please enter password:");
                     var password = Console.ReadLine();
-                    // public static SignIn( username, password)
-                    var usernameValid = false;
-                    var userIndex = -1;
 
-                    //var username = Console.ReadLine();
-                    for (int i = 0; i < userList.Count; i++)
+                    var usernameValid = SignIn(username, password, obj);
+
+                    var userType = obj.User.GetType();
+                    if (obj.User.Password == password)
                     {
-                        if (username == admin.Username)
-                        {
-                            user = admin;
-                            usernameValid = true;
-                        }
+                        usernameValid = true;
+                        if (userType == typeof(Models.UserAccount))
+                            Controller.Menus.UserMenu(obj);
                         else
-                        {
-                            if (username == userList[i].Username)
-                            {
-                                usernameValid = true;
-                                userIndex = i;
-                                user = userList[i];
-                            }
-                        }
+                            Controller.Menus.AdminMenu(obj);
                     }
-                    if (usernameValid)
-                    {
-                        var userType = user.GetType();
-                        if (user.Password == password)
-                        {
-                            usernameValid = true;
-                            if (userType == typeof(Models.UserAccount))
-                                Controller.Menus.UserMenu(userList, roleList, userIndex, consoleMessage, user);
-                            else
-                                Controller.Menus.AdminMenu(userList, roleList, userIndex, consoleMessage, user);
-                        }
-                        else usernameValid = false;
-                    }
-                    if(!usernameValid) consoleMessage.ShowMessageAndClear("Username and password does not match");
+
+                    if (!usernameValid) obj.ConsoleMessage.ShowMessageAndClear("Username and password does not match");
                 }
                 else
                     runProgram = false;
             }
         }
-
+            public static bool SignIn(string username, string password, Controller.VariableObject obj)
+        {
+            obj.UserIndex = -1;
+            for (int i = 0; i < obj.UserList.Count; i++)
+            {
+                if (username == obj.Admin.Username)
+                {
+                    obj.User = obj.Admin;
+                    return true;
+                }
+                else
+                {
+                    if (username == obj.UserList[i].Username)
+                    {                        
+                        obj.UserIndex = i;
+                        obj.User = obj.UserList[i];
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

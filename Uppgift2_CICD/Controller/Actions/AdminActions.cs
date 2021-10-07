@@ -7,11 +7,11 @@ namespace Uppgift1_CICD.Controller.Actions
 {
     public class AdminActions
     {
-        public void SeeUserDemands(List<Models.UserAccount> userList, List<Models.CompanyRole> roleList)
+        public void SeeUserDemands(List<Models.UserAccount> UserList, List<Models.CompanyRole> RoleList)
         {
-            var consoleMessage = new View.ConsoleMessages();
+            var ConsoleMessage = new View.ConsoleMessages();
             var newDemans = new List<Models.UserAccount>();
-            foreach (var item in userList)
+            foreach (var item in UserList)
             {
                 if (item.EmpNewRole > 0 || item.EmpNewSalary > 0)
                     newDemans.Add(item);
@@ -22,7 +22,7 @@ namespace Uppgift1_CICD.Controller.Actions
                 {
                     if (item.EmpNewRole > 0)
                     {
-                        Console.WriteLine($"{item.EmpName} | Company role: {roleList[item.EmpRoleID - 1].RoleName} | New company role: {roleList[item.EmpNewRole - 1].RoleName}\n");
+                        Console.WriteLine($"{item.EmpName} | Company role: {RoleList[item.EmpRoleID - 1].RoleName} | New company role: {RoleList[item.EmpNewRole - 1].RoleName}\n");
                         Console.WriteLine("Do you accept this new demand?\n[1]Yes\n[0]No");
                         var acceptNewDemand = Controller.UserInput.IsInputInterger(0, 1);
                         if (acceptNewDemand == 1)
@@ -45,24 +45,24 @@ namespace Uppgift1_CICD.Controller.Actions
             }
             else
             {
-                consoleMessage.ShowMessageAndClear("There are no new demands.");
+                ConsoleMessage.ShowMessageAndClear("There are no new demands.");
             }
 
         }
-        public void CreateNewUser(List<Models.UserAccount> userList, Models.Account user)
+        public void CreateNewUser(List<Models.UserAccount> UserList, Models.Account user)
         {
-            var consoleMessage = new View.ConsoleMessages();
+            var ConsoleMessage = new View.ConsoleMessages();
             Console.WriteLine("Enter username for new user:");
             var newUsername = Console.ReadLine();
             var newUsernameValid = IsUserNameValid(newUsername);
             if (newUsername != user.Username)
                 if (newUsernameValid)
                 {
-                    foreach (var item in userList)
+                    foreach (var item in UserList)
                     {
                         if (item.Username == newUsername)
                         {
-                            consoleMessage.ShowMessageAndClear("Username already exists, please try another");
+                            ConsoleMessage.ShowMessageAndClear("Username already exists, please try another");
                             newUsernameValid = false;
                         }
                     }
@@ -75,46 +75,46 @@ namespace Uppgift1_CICD.Controller.Actions
                             newPasswordValid = newPassword.Any(char.IsLetter);
                         if (newPasswordValid)
                         {
-                            userList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
-                            consoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
+                            UserList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
+                            ConsoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
                         }
                         else
                         {
-                            consoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
+                            ConsoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
                         }
                     }
                 }
                 else
                 {
-                    consoleMessage.ShowMessageAndClear("Username must contain at least 1 letter and 1 digit");
+                    ConsoleMessage.ShowMessageAndClear("Username must contain at least 1 letter and 1 digit");
                 }
 
             else
             {
-                consoleMessage.ShowMessageAndClear($"Username {user.Username} already exists, please try another");
+                ConsoleMessage.ShowMessageAndClear($"Username {user.Username} already exists, please try another");
             }
         }
-        public void AdvanceOneMonth(List<Models.UserAccount> userList, Models.Account user)
+        public void AdvanceOneMonth(List<Models.UserAccount> UserList, Models.Account user)
         {
-            var consoleMessage = new View.ConsoleMessages();
-            foreach (var item in userList)
+            var ConsoleMessage = new View.ConsoleMessages();
+            foreach (var item in UserList)
             {
                 item.EmpBalance += item.EmpSalary;
             }
             user.EmpBalance += user.EmpSalary;
-            consoleMessage.ShowMessageAndClear("One month has passed and everyone is richer");
+            ConsoleMessage.ShowMessageAndClear("One month has passed and everyone is richer");
         }
-        public void DeleteUser(List<Models.UserAccount> userList, int userIndex)
+        public void DeleteUser(List<Models.UserAccount> UserList, int userIndex)
         {
-            var consoleMessage = new View.ConsoleMessages();
+            var ConsoleMessage = new View.ConsoleMessages();
             Models.UserAccount userToDelete = null;
             Console.WriteLine("Please enter username to delete user:");
             var usernameToDelete = Console.ReadLine();
-            for (var i = 0; i < userList.Count; i++)
+            for (var i = 0; i < UserList.Count; i++)
             {
-                if (userList[i].Username == usernameToDelete)
+                if (UserList[i].Username == usernameToDelete)
                 {
-                    userToDelete = userList[i];
+                    userToDelete = UserList[i];
                     userIndex = i;
                 }
             }
@@ -123,17 +123,17 @@ namespace Uppgift1_CICD.Controller.Actions
                 Console.WriteLine("Please enter password:");
                 if (Console.ReadLine() == userToDelete.Password)
                 {
-                    consoleMessage.ShowMessageAndClear($"User {userToDelete.Username} har been deleted.");
-                    userList.RemoveAt(userIndex);
+                    ConsoleMessage.ShowMessageAndClear($"User {userToDelete.Username} har been deleted.");
+                    UserList.RemoveAt(userIndex);
                 }
                 else
                 {
-                    consoleMessage.ShowMessageAndClear("Password not correct");
+                    ConsoleMessage.ShowMessageAndClear("Password not correct");
                 }
             }
             else
             {
-                consoleMessage.ShowMessageAndClear("Username does not exist");
+                ConsoleMessage.ShowMessageAndClear("Username does not exist");
             }
         }
         public bool IsUserNameValid(string username)
