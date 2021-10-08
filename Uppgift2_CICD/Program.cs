@@ -16,8 +16,8 @@ namespace Uppgift1_CICD
             var runProgram = true;
             var obj = new Controller.VariableObject();
 
-            CreateDatabase.CreateListOCompanyRoles(obj);
             CreateDatabase.CreateListOfUsers(obj);
+            CreateDatabase.CreateListOCompanyRoles(obj);
             obj.Admin = CreateDatabase.admin1;
 
             while (runProgram)

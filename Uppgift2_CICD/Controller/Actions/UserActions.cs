@@ -6,65 +6,64 @@ namespace Uppgift1_CICD.Controller.Actions
 {
     public class UserActions
     {
-        public void DemandNewCompanyRole(List<Models.UserAccount> UserList, List<Models.CompanyRole> RoleList, Models.Account user, int userIndex)
+        public void DemandNewCompanyRole(VariableObject obj)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
             Console.Clear();
             Console.WriteLine("These are our company roles:\n");
-            foreach (var item in RoleList)
+            foreach (var item in obj.RoleList)
             {
                 Console.WriteLine($"[{item.RoleID}]{item.RoleName}");
             }
-            Console.WriteLine($"\nYour role is: {RoleList[user.EmpRoleID - 1].RoleName}\n\nPlease select you new company role:\n");
+            Console.WriteLine($"\nYour role is: {obj.RoleList[obj.User.EmpRoleID - 1].RoleName}\n\nPlease select you new company role:\n");
             var newRole = Controller.UserInput.IsInputInterger(1, 4);
 
-            Console.WriteLine($"Your new demanded role is: {RoleList[newRole - 1].RoleName}\n\nIs this correct?\n[1]Yes\n[0]No");
+            Console.WriteLine($"Your new demanded role is: {obj.RoleList[newRole - 1].RoleName}\n\nIs this correct?\n[1]Yes\n[0]No");
             if (Controller.UserInput.IsInputInterger(0, 1) == 1)
             {
-                UserList[userIndex].EmpNewRole = newRole;
-                ConsoleMessage.ShowMessageAndClear("You new demand has been registered.");
+                obj.UserList[obj.UserIndex].EmpNewRole = newRole;
+                obj.ConsoleMessage.ShowMessageAndClear("You new demand has been registered.");
             }
-            else ConsoleMessage.ShowMessageAndClear("You have aborted this action.");
+            else obj.ConsoleMessage.ShowMessageAndClear("You have aborted this action.");
         }
-        public void DemandNewSalay(List<Models.UserAccount> UserList, Models.Account user, int userIndex)
+        public void DemandNewSalay(VariableObject obj)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
 
-            Console.WriteLine($"Your salary is: {user.EmpSalary}");
+            Console.WriteLine($"Your salary is: {obj.User.EmpSalary}");
             Console.WriteLine("We only allow a pay raise of 1 - 100%.\nNo decrease in salary allowed!\n\nPlease enter your demanded salary:");
-            var demandedSalary = Controller.UserInput.IsInputInterger(user.EmpSalary + 1, user.EmpSalary * 2);
+            var demandedSalary = Controller.UserInput.IsInputInterger(obj.User.EmpSalary + 1, obj.User.EmpSalary * 2);
             Console.Clear();
             Console.WriteLine($"Your new demanded salary is: {demandedSalary}\n\nIs this correct?\n[1]Yes\n[0]No");
 
             if (Controller.UserInput.IsInputInterger(0, 1) == 1)
             {
-                UserList[userIndex].EmpNewSalary = demandedSalary;
-                ConsoleMessage.ShowMessageAndClear("You new demand has been registered.");
+                obj.UserList[obj.UserIndex].EmpNewSalary = demandedSalary;
+                obj.ConsoleMessage.ShowMessageAndClear("You new demand has been registered.");
             }
-            else ConsoleMessage.ShowMessageAndClear("You have aborted this action.");
+            else obj.ConsoleMessage.ShowMessageAndClear("You have aborted this action.");
         }
-        public int DeleteAccount(List<Models.UserAccount> UserList, Models.Account user, int userIndex, int userMenuChoice)
+        public int DeleteAccount(int userMenuChoice, VariableObject obj)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
 
             Console.WriteLine("Please enter username:");
-            if (Console.ReadLine() == user.Username)
+            if (Console.ReadLine() == obj.User.Username)
             {
                 Console.WriteLine("Please enter password:");
-                if (Console.ReadLine() == user.Password)
+                if (Console.ReadLine() == obj.User.Password)
                 {
-                    ConsoleMessage.ShowMessageAndClear($"User {user.Username} har been deleted.");
-                    UserList.RemoveAt(userIndex);
+                    obj.ConsoleMessage.ShowMessageAndClear($"User {obj.User.Username} har been deleted.");
+                    obj.UserList.RemoveAt(obj.UserIndex);
+                    obj.User = new Models.Account();
+                    
                     userMenuChoice = 0;
                 }
                 else
                 {
-                    ConsoleMessage.ShowMessageAndClear("Password not correct");
+                    obj.ConsoleMessage.ShowMessageAndClear("Password not correct");
                 }
             }
             else
             {
-                ConsoleMessage.ShowMessageAndClear("Wrong username");
+                obj.ConsoleMessage.ShowMessageAndClear("Wrong username");
             }
             return userMenuChoice;
         }

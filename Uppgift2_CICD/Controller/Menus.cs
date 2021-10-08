@@ -19,9 +19,9 @@ namespace Uppgift1_CICD.Controller
                 userMenuChoice = Controller.UserInput.IsInputInterger(0, 3);
                 switch (userMenuChoice)
                 {
-                    case 1: userActions.DemandNewCompanyRole(obj.UserList, obj.RoleList, obj.User, obj.UserIndex); break;
-                    case 2: userActions.DemandNewSalay(obj.UserList, obj.User, obj.UserIndex); break;
-                    case 3: userMenuChoice = userActions.DeleteAccount(obj.UserList, obj.User, obj.UserIndex, userMenuChoice); break;
+                    case 1: userActions.DemandNewCompanyRole(obj); break;
+                    case 2: userActions.DemandNewSalay(obj); break;
+                    case 3: userMenuChoice = userActions.DeleteAccount(userMenuChoice, obj); break;
                     case 0: Console.Clear(); break;
                 }
             }
@@ -52,10 +52,10 @@ namespace Uppgift1_CICD.Controller
                         obj.ConsoleMessage.ShowMessageAndClear("");
                         break;
 
-                    case 2: adminActions.SeeUserDemands(obj.UserList, obj.RoleList); break;
-                    case 3: adminActions.AdvanceOneMonth(obj.UserList, obj.User); break;
-                    case 4: adminActions.CreateNewUser(obj.UserList, obj.User); break;
-                    case 5: adminActions.DeleteUser(obj.UserList, obj.UserIndex); break;
+                    case 2: adminActions.SeeUserDemands(obj); break;
+                    case 3: adminActions.AdvanceOneMonth(obj); break;
+                    case 4: adminActions.CreateNewUser(obj); break;
+                    case 5: adminActions.DeleteUser(obj); break;
                     default:
                         break;
                 }
