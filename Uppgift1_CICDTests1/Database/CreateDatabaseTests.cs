@@ -18,8 +18,8 @@ namespace Uppgift1_CICD.Tests
             CreateDatabase.CreateListOfUsers(obj);
             CreateDatabase.CreateListOCompanyRoles(obj);
 
-            Assert.IsNotNull(obj.UserList);
-            Assert.IsNotNull(obj.RoleList);
+            Assert.AreEqual(10, obj.UserList.Count);
+            Assert.AreEqual(4, obj.RoleList.Count);
         }
     }
 }
