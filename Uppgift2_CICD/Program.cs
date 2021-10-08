@@ -43,7 +43,6 @@ namespace Uppgift1_CICD
                         else
                             Controller.Menus.AdminMenu(obj);
                     }
-
                     if (!usernameValid) obj.ConsoleMessage.ShowMessageAndClear("Username and password does not match");
                 }
                 else
