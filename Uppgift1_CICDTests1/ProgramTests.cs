@@ -18,10 +18,13 @@ namespace Uppgift1_CICD.Tests
             CreateDatabase.CreateListOCompanyRoles(obj);
             CreateDatabase.CreateListOfUsers(obj);
             obj.Admin = CreateDatabase.admin1;
-            obj.UserIndex = -1;
-            var signIn = Program.SignIn("admin1", "admin1234", obj);
+            var signInAdmin = Program.SignIn("admin1", "admin1234", obj);
+            var signInUser1 = Program.SignIn("phiras001", "qasw12", obj);
+            var signInUser2 = Program.SignIn("predog001", "qasw12", obj);
 
-            Assert.IsTrue(signIn);
+            Assert.IsTrue(signInAdmin);
+            Assert.IsTrue(signInUser1);
+            Assert.IsTrue(signInUser2);
         }
     }
 }

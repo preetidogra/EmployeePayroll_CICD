@@ -14,7 +14,12 @@ namespace Uppgift1_CICD.Tests
         [Test()]
         public void CreateListOfUsersTest()
         {
-            Assert.Pass();
+            var obj = new Controller.VariableObject();
+            CreateDatabase.CreateListOfUsers(obj);
+            CreateDatabase.CreateListOCompanyRoles(obj);
+
+            Assert.IsNotNull(obj.UserList);
+            Assert.IsNotNull(obj.RoleList);
         }
     }
 }

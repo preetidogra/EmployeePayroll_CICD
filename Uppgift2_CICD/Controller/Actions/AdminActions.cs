@@ -7,11 +7,11 @@ namespace Uppgift1_CICD.Controller.Actions
 {
     public class AdminActions
     {
-        public void SeeUserDemands(List<Models.UserAccount> UserList, List<Models.CompanyRole> RoleList)
+        public void SeeUserDemands(VariableObject obj)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
+           
             var newDemans = new List<Models.UserAccount>();
-            foreach (var item in UserList)
+            foreach (var item in obj.UserList)
             {
                 if (item.EmpNewRole > 0 || item.EmpNewSalary > 0)
                     newDemans.Add(item);
@@ -22,7 +22,7 @@ namespace Uppgift1_CICD.Controller.Actions
                 {
                     if (item.EmpNewRole > 0)
                     {
-                        Console.WriteLine($"{item.EmpName} | Company role: {RoleList[item.EmpRoleID - 1].RoleName} | New company role: {RoleList[item.EmpNewRole - 1].RoleName}\n");
+                        Console.WriteLine($"{item.EmpName} | Company role: {obj.RoleList[item.EmpRoleID - 1].RoleName} | New company role: {obj.RoleList[item.EmpNewRole - 1].RoleName}\n");
                         Console.WriteLine("Do you accept this new demand?\n[1]Yes\n[0]No");
                         var acceptNewDemand = Controller.UserInput.IsInputInterger(0, 1);
                         if (acceptNewDemand == 1)
@@ -45,20 +45,20 @@ namespace Uppgift1_CICD.Controller.Actions
             }
             else
             {
-                ConsoleMessage.ShowMessageAndClear("There are no new demands.");
+                obj.ConsoleMessage.ShowMessageAndClear("There are no new demands.");
             }
 
         }
-        public void CreateNewUser(List<Models.UserAccount> UserList, Models.Account user)
+        public void CreateNewUser(VariableObject obj)
         {
             var ConsoleMessage = new View.ConsoleMessages();
-            Console.WriteLine("Enter username for new user:");
+            Console.WriteLine("Enter username for new obj.User:");
             var newUsername = Console.ReadLine();
             var newUsernameValid = IsUserNameValid(newUsername);
-            if (newUsername != user.Username)
+            if (newUsername != obj.User.Username)
                 if (newUsernameValid)
                 {
-                    foreach (var item in UserList)
+                    foreach (var item in obj.UserList)
                     {
                         if (item.Username == newUsername)
                         {
@@ -68,14 +68,14 @@ namespace Uppgift1_CICD.Controller.Actions
                     }
                     if (newUsernameValid)
                     {
-                        Console.WriteLine($"Enter password for new user {newUsername}:");
+                        Console.WriteLine($"Enter password for new obj.User {newUsername}:");
                         var newPassword = Console.ReadLine();
                         var newPasswordValid = newPassword.Any(char.IsDigit);
                         if (newPasswordValid)
                             newPasswordValid = newPassword.Any(char.IsLetter);
                         if (newPasswordValid)
                         {
-                            UserList.Add(new Models.UserAccount("New user", newUsername, newPassword, 4, 0, 0));
+                            obj.UserList.Add(new Models.UserAccount("New obj.User", newUsername, newPassword, 4, 0, 0));
                             ConsoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
                         }
                         else
@@ -91,31 +91,31 @@ namespace Uppgift1_CICD.Controller.Actions
 
             else
             {
-                ConsoleMessage.ShowMessageAndClear($"Username {user.Username} already exists, please try another");
+                ConsoleMessage.ShowMessageAndClear($"Username {obj.User.Username} already exists, please try another");
             }
         }
-        public void AdvanceOneMonth(List<Models.UserAccount> UserList, Models.Account user)
+        public void AdvanceOneMonth(VariableObject obj)
         {
             var ConsoleMessage = new View.ConsoleMessages();
-            foreach (var item in UserList)
+            foreach (var item in obj.UserList)
             {
                 item.EmpBalance += item.EmpSalary;
             }
-            user.EmpBalance += user.EmpSalary;
+            obj.User.EmpBalance += obj.User.EmpSalary;
             ConsoleMessage.ShowMessageAndClear("One month has passed and everyone is richer");
         }
-        public void DeleteUser(List<Models.UserAccount> UserList, int userIndex)
+        public void DeleteUser(VariableObject obj)
         {
             var ConsoleMessage = new View.ConsoleMessages();
             Models.UserAccount userToDelete = null;
             Console.WriteLine("Please enter username to delete user:");
             var usernameToDelete = Console.ReadLine();
-            for (var i = 0; i < UserList.Count; i++)
+            for (var i = 0; i < obj.UserList.Count; i++)
             {
-                if (UserList[i].Username == usernameToDelete)
+                if (obj.UserList[i].Username == usernameToDelete)
                 {
-                    userToDelete = UserList[i];
-                    userIndex = i;
+                    userToDelete = obj.UserList[i];
+                    obj.UserIndex = i;
                 }
             }
             if (userToDelete != null)
@@ -124,7 +124,7 @@ namespace Uppgift1_CICD.Controller.Actions
                 if (Console.ReadLine() == userToDelete.Password)
                 {
                     ConsoleMessage.ShowMessageAndClear($"User {userToDelete.Username} har been deleted.");
-                    UserList.RemoveAt(userIndex);
+                    obj.UserList.RemoveAt(obj.UserIndex);
                 }
                 else
                 {

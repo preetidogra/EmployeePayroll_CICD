@@ -28,7 +28,6 @@ namespace Uppgift1_CICD
         }  
         public static void CreateListOCompanyRoles(Controller.VariableObject obj)
         {
-
             obj.RoleList.Add(new Models.CompanyRole(1, "Senior Manager"));
             obj.RoleList.Add(new Models.CompanyRole(2, "Manager"));
             obj.RoleList.Add(new Models.CompanyRole(3, "Senior Developer"));
