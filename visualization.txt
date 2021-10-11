@@ -1,17 +1,17 @@
 name: .NET
 
-on:
-  push:
+on:  
+  push:  //Actions will be triggered when pushing to master branch
     branches: [ master ]
-  pull_request:
+  pull_request:  //Actions will be triggered when do a pull request to master branch
     branches: [ master ]
 
-jobs:
+jobs: 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  //What environment we use
 
-    steps:
+    steps:  //What steps is taken when we run our build
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
