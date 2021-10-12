@@ -26,5 +26,26 @@ namespace Uppgift1_CICD.Tests
             Assert.IsTrue(signInUser1);
             Assert.IsTrue(signInUser2);
         }
+        
+        [Test()]
+        public void IntegrationTest()
+        {
+            var obj = new Controller.VariableObject();
+            var adminActions =  new Controller.Actions.AdminActions();
+            CreateDatabase.CreateListOCompanyRoles(obj);
+            CreateDatabase.CreateListOfUsers(obj);
+            obj.Admin = CreateDatabase.admin1;
+            var signInAdmin = Program.SignIn("admin1", "admin1234", obj);
+            var initialUserListLength = obj.UserList.Count;
+            var firstTryToDelete = adminActions.DeleteUser(obj, "phiras001", "qasw12");
+            var postDeleteUserListLength = obj.UserList.Count;
+           var secondTryToDelete = adminActions.DeleteUser(obj, "phiras001", "qasw12");
+
+            Assert.IsTrue(signInAdmin);
+            Assert.Greater( initialUserListLength, postDeleteUserListLength);
+            Assert.IsTrue(firstTryToDelete);
+            Assert.IsFalse(secondTryToDelete);
+        }
+
     }
 }
