@@ -52,7 +52,7 @@ namespace Uppgift1_CICD.Controller.Actions
         public void CreateNewUser(VariableObject obj)
         {
             var ConsoleMessage = new View.ConsoleMessages();
-            Console.WriteLine("Enter username for new obj.User:");
+            Console.WriteLine($"Enter username for new {obj.User}:");
             var newUsername = Console.ReadLine();
             var newUsernameValid = IsUserNameValid(newUsername);
             if (newUsername != obj.User.Username)
@@ -104,12 +104,10 @@ namespace Uppgift1_CICD.Controller.Actions
             obj.User.EmpBalance += obj.User.EmpSalary;
             ConsoleMessage.ShowMessageAndClear("One month has passed and everyone is richer");
         }
-        public void DeleteUser(VariableObject obj)
+        public bool DeleteUser(VariableObject obj, string username, string password)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
             Models.UserAccount userToDelete = null;
-            Console.WriteLine("Please enter username to delete user:");
-            var usernameToDelete = Console.ReadLine();
+            var usernameToDelete = username;
             for (var i = 0; i < obj.UserList.Count; i++)
             {
                 if (obj.UserList[i].Username == usernameToDelete)
@@ -120,21 +118,15 @@ namespace Uppgift1_CICD.Controller.Actions
             }
             if (userToDelete != null)
             {
-                Console.WriteLine("Please enter password:");
-                if (Console.ReadLine() == userToDelete.Password)
+                
+                if (password == userToDelete.Password)
                 {
-                    ConsoleMessage.ShowMessageAndClear($"User {userToDelete.Username} har been deleted.");
                     obj.UserList.RemoveAt(obj.UserIndex);
+                    return true;
                 }
-                else
-                {
-                    ConsoleMessage.ShowMessageAndClear("Password not correct");
-                }
+                else return false;
             }
-            else
-            {
-                ConsoleMessage.ShowMessageAndClear("Username does not exist");
-            }
+            else return false;
         }
         public bool IsUserNameValid(string username)
         {

@@ -54,8 +54,25 @@ namespace Uppgift1_CICD.Controller
 
                     case 2: adminActions.SeeUserDemands(obj); break;
                     case 3: adminActions.AdvanceOneMonth(obj); break;
-                    case 4: adminActions.CreateNewUser(obj); break;
-                    case 5: adminActions.DeleteUser(obj); break;
+                    case 4:
+                        adminActions.CreateNewUser(obj);
+                        break;
+                    case 5:
+
+                        Console.WriteLine("Please enter username to delete user:");
+                        var username = Console.ReadLine();
+                        Console.WriteLine("Please enter password to delete user:");
+                        var password = Console.ReadLine();
+                        if (adminActions.DeleteUser(obj, username, password)) 
+                        {
+                            obj.ConsoleMessage.ShowMessageAndClear($"User {username} har been deleted.");
+                        }
+                        else
+                        {
+                            obj.ConsoleMessage.ShowMessageAndClear("Password not correct");
+                        }
+
+                        break;
                     default:
                         break;
                 }
