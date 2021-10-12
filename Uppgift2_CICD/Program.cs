@@ -34,22 +34,33 @@ namespace Uppgift1_CICD
 
                     var usernameValid = SignIn(username, password, obj);
 
-                    var userType = obj.User.GetType();
-                    if (obj.User.Password == password)
+                    if (usernameValid)
                     {
-                        usernameValid = true;
-                        if (userType == typeof(Models.UserAccount))
-                            Controller.Menus.UserMenu(obj);
+                        var userType = obj.User.GetType();
+                        if (obj.User.Password == password)
+                        {
+                            usernameValid = true;
+                            if (userType == typeof(Models.UserAccount))
+                                Controller.Menus.UserMenu(obj);
+                            else
+                                Controller.Menus.AdminMenu(obj);
+                        }
                         else
-                            Controller.Menus.AdminMenu(obj);
+                        {
+                            obj.ConsoleMessage.ShowMessageAndClear("Username and password does not match");
+                        }
                     }
-                    if (!usernameValid) obj.ConsoleMessage.ShowMessageAndClear("Username and password does not match");
+                    else
+                    {
+                        obj.ConsoleMessage.ShowMessageAndClear("Username and password does not match");
+
+                    }
                 }
                 else
                     runProgram = false;
             }
         }
-            public static bool SignIn(string username, string password, Controller.VariableObject obj)
+        public static bool SignIn(string username, string password, Controller.VariableObject obj)
         {
             obj.UserIndex = -1;
             for (int i = 0; i < obj.UserList.Count; i++)
@@ -62,7 +73,7 @@ namespace Uppgift1_CICD
                 else
                 {
                     if (username == obj.UserList[i].Username)
-                    {                        
+                    {
                         obj.UserIndex = i;
                         obj.User = obj.UserList[i];
                         return true;

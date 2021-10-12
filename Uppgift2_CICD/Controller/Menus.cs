@@ -55,17 +55,42 @@ namespace Uppgift1_CICD.Controller
                     case 2: adminActions.SeeUserDemands(obj); break;
                     case 3: adminActions.AdvanceOneMonth(obj); break;
                     case 4:
-                        adminActions.CreateNewUser(obj);
+                        var newUserSuccessfullyCreated = false;
+                        Console.WriteLine($"Enter username for new user. \nUsername must contain both letters and numbers:");
+
+                        var newUsername = Console.ReadLine();
+                        if (adminActions.IsUserNameValid(newUsername))
+                        {
+                            Console.WriteLine($"Enter password for new user. \nPassword must contain both letters and numbers:");
+                            var newPassword = Console.ReadLine();
+                            if (adminActions.IsUserNameValid(newPassword))
+                            {
+                               newUserSuccessfullyCreated = adminActions.CreateNewUser(obj, newUsername, newPassword);
+                            }
+                            else
+                            {
+                                obj.ConsoleMessage.ShowMessageAndClear("Password not valid. \nPassword must contain both letters and numbers");
+                            }
+                        }
+                        else
+                        {
+                            obj.ConsoleMessage.ShowMessageAndClear("Username not valid. \nUsername must contain both letters and numbers");
+                        }
+                        if (newUserSuccessfullyCreated)
+                        {
+                            obj.ConsoleMessage.ShowMessageAndClear($"{newUsername} was successfully created.");
+                        }
+
                         break;
                     case 5:
 
                         Console.WriteLine("Please enter username to delete user:");
-                        var username = Console.ReadLine();
+                        var usernameToDelete = Console.ReadLine();
                         Console.WriteLine("Please enter password to delete user:");
-                        var password = Console.ReadLine();
-                        if (adminActions.DeleteUser(obj, username, password)) 
+                        var passwordToDelete = Console.ReadLine();
+                        if (adminActions.DeleteUser(obj, usernameToDelete, passwordToDelete))
                         {
-                            obj.ConsoleMessage.ShowMessageAndClear($"User {username} har been deleted.");
+                            obj.ConsoleMessage.ShowMessageAndClear($"User {usernameToDelete} har been deleted.");
                         }
                         else
                         {
