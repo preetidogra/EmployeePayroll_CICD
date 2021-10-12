@@ -9,7 +9,7 @@ namespace Uppgift1_CICD.Controller.Actions
     {
         public void SeeUserDemands(VariableObject obj)
         {
-           
+
             var newDemans = new List<Models.UserAccount>();
             foreach (var item in obj.UserList)
             {
@@ -49,50 +49,29 @@ namespace Uppgift1_CICD.Controller.Actions
             }
 
         }
-        public void CreateNewUser(VariableObject obj)
+        public bool CreateNewUser(VariableObject obj, string username, string password)
         {
-            var ConsoleMessage = new View.ConsoleMessages();
-            Console.WriteLine($"Enter username for new {obj.User}:");
-            var newUsername = Console.ReadLine();
-            var newUsernameValid = IsUserNameValid(newUsername);
-            if (newUsername != obj.User.Username)
-                if (newUsernameValid)
+            var newUsernameValid = true;
+
+            if (username != obj.User.Username)
+                foreach (var item in obj.UserList)
                 {
-                    foreach (var item in obj.UserList)
+                    if (item.Username == username)
                     {
-                        if (item.Username == newUsername)
-                        {
-                            ConsoleMessage.ShowMessageAndClear("Username already exists, please try another");
-                            newUsernameValid = false;
-                        }
-                    }
-                    if (newUsernameValid)
-                    {
-                        Console.WriteLine($"Enter password for new obj.User {newUsername}:");
-                        var newPassword = Console.ReadLine();
-                        var newPasswordValid = newPassword.Any(char.IsDigit);
-                        if (newPasswordValid)
-                            newPasswordValid = newPassword.Any(char.IsLetter);
-                        if (newPasswordValid)
-                        {
-                            obj.UserList.Add(new Models.UserAccount("New obj.User", newUsername, newPassword, 4, 0, 0));
-                            ConsoleMessage.ShowMessageAndClear($"User {newUsername} has successfully been created");
-                        }
-                        else
-                        {
-                            ConsoleMessage.ShowMessageAndClear("Password must contain at least 1 letter and 1 digit");
-                        }
+                        newUsernameValid = false;
                     }
                 }
-                else
-                {
-                    ConsoleMessage.ShowMessageAndClear("Username must contain at least 1 letter and 1 digit");
-                }
+            if (newUsernameValid)
+            {
+                obj.UserList.Add(new Models.UserAccount("New user", username, password, 4, 0, 0));
+            }
 
             else
             {
-                ConsoleMessage.ShowMessageAndClear($"Username {obj.User.Username} already exists, please try another");
+                newUsernameValid = false;
             }
+
+            return newUsernameValid;
         }
         public void AdvanceOneMonth(VariableObject obj)
         {
@@ -118,7 +97,7 @@ namespace Uppgift1_CICD.Controller.Actions
             }
             if (userToDelete != null)
             {
-                
+
                 if (password == userToDelete.Password)
                 {
                     obj.UserList.RemoveAt(obj.UserIndex);

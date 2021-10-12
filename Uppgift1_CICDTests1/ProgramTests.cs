@@ -28,7 +28,7 @@ namespace Uppgift1_CICD.Tests
         }
         
         [Test()]
-        public void IntegrationTest()
+        public void IntegrationTestDeleteUser()
         {
             var obj = new Controller.VariableObject();
             var adminActions =  new Controller.Actions.AdminActions();
@@ -45,6 +45,24 @@ namespace Uppgift1_CICD.Tests
             Assert.Greater( initialUserListLength, postDeleteUserListLength);
             Assert.IsTrue(firstTryToDelete);
             Assert.IsFalse(secondTryToDelete);
+        }
+        [Test()]
+        public void IntegrationTestCreateUser()
+        {
+            var obj = new Controller.VariableObject();
+            var adminActions =  new Controller.Actions.AdminActions();
+            CreateDatabase.CreateListOCompanyRoles(obj);
+            CreateDatabase.CreateListOfUsers(obj);
+            obj.Admin = CreateDatabase.admin1;
+            Program.SignIn("admin1", "admin1234", obj);
+            var initialUserListLength = obj.UserList.Count;
+            var createExistingUser = adminActions.CreateNewUser(obj, "phiras001", "qasw12");
+           var createNewUser = adminActions.CreateNewUser(obj, "newusers001", "qasw12");
+            var postCreateUserListLength = obj.UserList.Count;
+
+            Assert.Greater( postCreateUserListLength, initialUserListLength);
+            Assert.IsFalse(createExistingUser);
+            Assert.IsTrue(createNewUser);
         }
 
     }
