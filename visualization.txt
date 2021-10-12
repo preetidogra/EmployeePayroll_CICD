@@ -9,7 +9,7 @@ on:
 jobs: 
   build:
 
-    runs-on: ubuntu-latest  //What environment we use
+    runs-on: ubuntu-latest  // what environment/ system the CI Runs on
 
     steps:  //What steps is taken when we run our build
     - uses: actions/checkout@v2
